@@ -1,0 +1,21 @@
+<?php
+
+declare(strict_types=1);
+
+namespace %%namespace%%;
+
+use Doctrine\DBAL\Connection;
+use Heptacom\HeptaConnect\Integration\Component\Migration\AbstractMigration;
+
+class Migration%%timestamp%%%%name%% extends AbstractMigration
+{
+    public function getCreationTimestamp(): int
+    {
+        return %%timestamp%%;
+    }
+
+    protected function up(Connection $connection): void
+    {
+        // implement up
+    }
+}

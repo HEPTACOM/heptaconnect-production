@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Heptacom\HeptaConnect\DevOps;
+namespace HeptaConnect\Production\DevOps;
 
 use Shopware\Core\Framework\Migration\Command\CreateMigrationCommand;
 use Symfony\Component\Console\ConsoleEvents;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Heptacom\HeptaConnect\Integration\Component\Migration;
+namespace HeptaConnect\Production\Integration\Component\Migration;
 
 use Doctrine\DBAL\Connection;
 use Heptacom\HeptaConnect\Storage\ShopwareDal\Bridge\StorageFacade;

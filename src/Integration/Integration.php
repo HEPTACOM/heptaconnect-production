@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Heptacom\HeptaConnect\Integration;
+namespace HeptaConnect\Production\Integration;
 
 use Heptacom\HeptaConnect\Bridge\ShopwarePlatform\AbstractIntegration;
-use Heptacom\HeptaConnect\Integration\DependencyInjection\CompilerPass\AutoloadPortals;
-use Heptacom\HeptaConnect\Integration\DependencyInjection\CompilerPass\RemoveObstructiveServices;
+use HeptaConnect\Production\Integration\DependencyInjection\CompilerPass\AutoloadPortals;
+use HeptaConnect\Production\Integration\DependencyInjection\CompilerPass\RemoveObstructiveServices;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class Integration extends AbstractIntegration

@@ -26,14 +26,14 @@ It provides a quickstart for projects aiming for a standalone application based 
     * Run `bin/console heptaconnect:portal-node:add 'NiemandOnline\HeptaConnect\Portal\Amiibo\AmiiboPortal' amiibo`
 * You can develop custom portals or portal extensions by adding them in the directory `/src/Portal`.
     * Create a new directory `/src/Portal/HelloWorld`.
-    * Inside this new directory create a class `Heptacom\HeptaConnect\Portal\HelloWorld\HelloWorldPortal`.
+    * Inside this new directory create a class `HeptaConnect\Production\Portal\HelloWorld\HelloWorldPortal` that extends `Heptacom\HeptaConnect\Portal\Base\Portal\Contract\PortalContract`.
     * Run `bin/console cache:clear`.
-    * Run `bin/console heptaconnect:portal-node:add 'Heptacom\HeptaConnect\Portal\HelloWorld\HelloWorldPortal' hello-world`.
+    * Run `bin/console heptaconnect:portal-node:add 'HeptaConnect\Production\Portal\HelloWorld\HelloWorldPortal' hello-world`.
     * [Read more about portal development in the documentation.](https://heptaconnect.io/guides/portal-developer/)
 * You can create migrations to get reproducible database operations that run once per installation.
     * Run `bin/console database:create-migration -p Integration` to generate a new migration file in `/src/Integration/Migration`.
     * The parent class provides convenience methods like `addPortalNode`, `addRoute` and `activatePortalExtension`.
-    * You can use `\Heptacom\HeptaConnect\Storage\ShopwareDal\Bridge\StorageFacade` via `$this->storageFacade`. This will grant you access to every storage action of the management storage.
+    * You can use `\HeptaConnect\Production\Storage\ShopwareDal\Bridge\StorageFacade` via `$this->storageFacade`. This will grant you access to every storage action of the management storage.
     * You can use `\Doctrine\DBAL\Connection` via `$connection`. This will grant you direct access to the underlying database.
     * Run `bin/console system:update:finish` to apply all new migrations.
 

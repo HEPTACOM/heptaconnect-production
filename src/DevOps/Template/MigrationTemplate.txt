@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace %%namespace%%;
 
 use Doctrine\DBAL\Connection;
-use Heptacom\HeptaConnect\Integration\Component\Migration\AbstractMigration;
+use HeptaConnect\Production\Integration\Component\Migration\AbstractMigration;
 
 class Migration%%timestamp%%%%name%% extends AbstractMigration
 {

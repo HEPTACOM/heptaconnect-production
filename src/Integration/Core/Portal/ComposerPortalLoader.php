@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Heptacom\HeptaConnect\Integration\Core\Portal;
+namespace HeptaConnect\Production\Integration\Core\Portal;
 
 use Heptacom\HeptaConnect\Core\Portal\ComposerPortalLoader as BaseComposerPortalLoader;
 use Heptacom\HeptaConnect\Portal\Base\Portal\Contract\PortalContract;

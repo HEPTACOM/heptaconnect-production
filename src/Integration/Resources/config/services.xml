@@ -3,9 +3,9 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="Heptacom\HeptaConnect\Integration\Core\Portal\ComposerPortalLoader"
+        <service id="HeptaConnect\Production\Integration\Core\Portal\ComposerPortalLoader"
                  decorates="Heptacom\HeptaConnect\Core\Portal\ComposerPortalLoader">
-            <argument type="service" id="Heptacom\HeptaConnect\Integration\Core\Portal\ComposerPortalLoader.inner"/>
+            <argument type="service" id="HeptaConnect\Production\Integration\Core\Portal\ComposerPortalLoader.inner"/>
             <argument type="tagged_iterator" tag="heptaconnect.portal"/>
             <argument type="tagged_iterator" tag="heptaconnect.portal_extension"/>
         </service>

@@ -17,7 +17,7 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
-        <service id="HeptaConnect\Production\Core\Bridge\PortalNode\Configuration\InstructionFileLoader">
+        <service id="Heptacom\HeptaConnect\Core\Bridge\PortalNode\Configuration\InstructionFileLoader">
             <tag name="heptaconnect_core.portal_node_configuration.instruction_file_loader"/>
             <argument>%kernel.project_dir%/config/heptaconnect.php</argument>
         </service>

@@ -9,7 +9,7 @@ use Heptacom\HeptaConnect\Storage\Base\Action\PortalNode\Create\PortalNodeCreate
 
 trait CreatePortalNodeMigrationTrait
 {
-    protected function addPortalNode(string $portalClass, string $portalNodeAlias): void
+    public function addPortalNode(string $portalClass, string $portalNodeAlias): void
     {
         $portalNodeCreateAction = $this->storageFacade->getPortalNodeCreateAction();
 

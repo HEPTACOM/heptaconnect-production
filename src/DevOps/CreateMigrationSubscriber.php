@@ -26,6 +26,8 @@ final class CreateMigrationSubscriber implements EventSubscriberInterface
             return;
         }
 
+        $event->getCommand()->getDefinition()->getOption('plugin')->setDefault('Integration');
+
         $patchTemplateFileName = __DIR__ . '/Template/MigrationTemplate.txt';
         $originalTemplateFileName = $this->getOriginalTemplateFileName();
         $backupTemplateFileName = $originalTemplateFileName . '.bak';

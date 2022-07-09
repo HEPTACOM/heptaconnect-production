@@ -9,7 +9,7 @@ use Heptacom\HeptaConnect\Storage\Base\Action\PortalExtension\Activate\PortalExt
 
 trait ActivatePortalExtensionTrait
 {
-    protected function activatePortalExtension(string $alias, string $className): void
+    public function activatePortalExtension(string $alias, string $className): void
     {
         $storageKeyGenerator = $this->storageFacade->getStorageKeyGenerator();
         $activateAction = $this->storageFacade->getPortalExtensionActivateAction();

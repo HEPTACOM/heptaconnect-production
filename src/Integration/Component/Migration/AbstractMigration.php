@@ -5,26 +5,31 @@ declare(strict_types=1);
 namespace HeptaConnect\Production\Integration\Component\Migration;
 
 use Doctrine\DBAL\Connection;
-use Heptacom\HeptaConnect\Storage\ShopwareDal\Bridge\StorageFacade;
 use Shopware\Core\Framework\Migration\MigrationStep;
 
 abstract class AbstractMigration extends MigrationStep
 {
-    use ActivatePortalExtensionTrait;
-    use CreatePortalNodeMigrationTrait;
-    use CreateRouteMigrationTrait;
+    final public function getCreationTimestamp(): int
+    {
+        \preg_match_all('/Migration(\d+)/', \get_class($this), $matches, PREG_SET_ORDER);
 
-    protected StorageFacade $storageFacade;
+        $timestamp = $matches[0][1] ?? null;
+
+        if ($timestamp === null) {
+            throw new \Exception('Invalid migration class name: ' . \get_class($this));
+        }
+
+        return (int) $timestamp;
+    }
 
     final public function update(Connection $connection): void
     {
-        $this->storageFacade = new StorageFacade($connection);
-        $this->up($connection);
+        $this->up(new MigrationHelper($connection));
     }
 
     final public function updateDestructive(Connection $connection): void
     {
     }
 
-    abstract protected function up(Connection $connection): void;
+    abstract protected function up(MigrationHelper $migrationHelper): void;
 }

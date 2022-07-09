@@ -11,7 +11,7 @@ use Heptacom\HeptaConnect\Storage\Base\Enum\RouteCapability;
 
 trait CreateRouteMigrationTrait
 {
-    protected function addRoute(
+    public function addRoute(
         string $sourceAlias,
         string $targetAlias,
         string $type,

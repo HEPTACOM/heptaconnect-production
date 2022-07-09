@@ -45,7 +45,7 @@ if ($debug) {
     }
 }
 
-$pluginLoader = new StaticKernelPluginLoader($classLoader, null);
+$pluginLoader = new ComposerPluginLoader($classLoader);
 
 $shopwareVersion = InstalledVersions::getVersion('shopware/core') . '@' . InstalledVersions::getReference('shopware/core');
 
@@ -57,8 +57,6 @@ $databaseUrl = (string) EnvironmentHelper::getVariable('DATABASE_URL', getenv('D
 
 if (trim($databaseUrl ?? '') === '') {
     $_SERVER['SHOPWARE_SKIP_CONNECTION_VARIABLES'] = true;
-} elseif (!EnvironmentHelper::hasVariable('INSTALL')) {
-    $pluginLoader = new ComposerPluginLoader($classLoader);
 }
 
 $kernel = new HttpKernel($env, $debug, $classLoader);

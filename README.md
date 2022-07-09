@@ -35,7 +35,7 @@ It provides a quickstart for projects aiming for a standalone application based 
     * The `\HeptaConnect\Production\Integration\Component\Migration\MigrationHelper` class provides convenience methods like `addPortalNode`, `addRoute` and `activatePortalExtension`.
     * You can use `\Heptacom\HeptaConnect\Storage\Base\Bridge\Contract\StorageFacadeInterface` via `$migrationHelper->getStorageFacade()`. This will grant you access to every storage action of the management storage.
     * You can use `\Doctrine\DBAL\Connection` via `$migrationHelper->getConnection()`. This will grant you direct access to the underlying database.
-    * ▶️ Run `bin/console system:update:finish` to apply all new migrations.
+    * Run `bin/console system:update:finish` to apply all new migrations.
 
 ## Deployment
 

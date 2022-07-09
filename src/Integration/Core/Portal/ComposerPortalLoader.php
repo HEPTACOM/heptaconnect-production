@@ -10,7 +10,7 @@ use Heptacom\HeptaConnect\Portal\Base\Portal\Contract\PortalExtensionContract;
 use Heptacom\HeptaConnect\Portal\Base\Portal\PortalCollection;
 use Heptacom\HeptaConnect\Portal\Base\Portal\PortalExtensionCollection;
 
-class ComposerPortalLoader extends BaseComposerPortalLoader
+final class ComposerPortalLoader extends BaseComposerPortalLoader
 {
     private BaseComposerPortalLoader $loader;
 

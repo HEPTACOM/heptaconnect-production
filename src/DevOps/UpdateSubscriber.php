@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
-class UpdateSubscriber implements EventSubscriberInterface
+final class UpdateSubscriber implements EventSubscriberInterface
 {
     public const PLUGINS = [];
 

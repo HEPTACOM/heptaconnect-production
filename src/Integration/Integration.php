@@ -9,7 +9,7 @@ use HeptaConnect\Production\Integration\DependencyInjection\CompilerPass\Autoloa
 use HeptaConnect\Production\Integration\DependencyInjection\CompilerPass\RemoveObstructiveServices;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class Integration extends AbstractIntegration
+final class Integration extends AbstractIntegration
 {
     public function build(ContainerBuilder $container): void
     {

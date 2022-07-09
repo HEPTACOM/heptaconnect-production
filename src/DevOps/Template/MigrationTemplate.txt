@@ -7,7 +7,7 @@ namespace %%namespace%%;
 use Doctrine\DBAL\Connection;
 use HeptaConnect\Production\Integration\Component\Migration\AbstractMigration;
 
-class Migration%%timestamp%%%%name%% extends AbstractMigration
+final class Migration%%timestamp%%%%name%% extends AbstractMigration
 {
     public function getCreationTimestamp(): int
     {

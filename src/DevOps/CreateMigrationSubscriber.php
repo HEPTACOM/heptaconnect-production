@@ -10,7 +10,7 @@ use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\Console\Event\ConsoleTerminateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class CreateMigrationSubscriber implements EventSubscriberInterface
+final class CreateMigrationSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {

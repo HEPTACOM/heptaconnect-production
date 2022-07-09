@@ -14,8 +14,6 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 final class UpdateSubscriber implements EventSubscriberInterface
 {
-    public const PLUGINS = [];
-
     private KernelInterface $kernel;
 
     public function __construct(KernelInterface $kernel)
@@ -43,20 +41,6 @@ final class UpdateSubscriber implements EventSubscriberInterface
                 '--all' => true,
             ],
         ];
-
-        foreach (self::PLUGINS as $plugins) {
-            \array_push($commands, [
-                'command' => 'plugin:install',
-                'plugins' => $plugins,
-                '--refresh' => true,
-            ], [
-                'command' => 'plugin:activate',
-                'plugins' => $plugins,
-            ], [
-                'command' => 'plugin:update',
-                'plugins' => $plugins,
-            ]);
-        }
 
         $this->runCommands($application, $commands, $output);
     }

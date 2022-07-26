@@ -4,13 +4,29 @@ declare(strict_types=1);
 
 namespace HeptaConnect\Production\Integration\Component\Migration;
 
+use Heptacom\HeptaConnect\Dataset\Base\Contract\DatasetEntityContract;
+use Heptacom\HeptaConnect\Dataset\Base\EntityType;
+use Heptacom\HeptaConnect\Dataset\Base\Exception\InvalidClassNameException;
+use Heptacom\HeptaConnect\Dataset\Base\Exception\InvalidSubtypeClassNameException;
+use Heptacom\HeptaConnect\Dataset\Base\Exception\UnexpectedLeadingNamespaceSeparatorInClassNameException;
 use Heptacom\HeptaConnect\Portal\Base\StorageKey\Contract\PortalNodeKeyInterface;
 use Heptacom\HeptaConnect\Storage\Base\Action\Route\Create\RouteCreatePayload;
 use Heptacom\HeptaConnect\Storage\Base\Action\Route\Create\RouteCreatePayloads;
+use Heptacom\HeptaConnect\Storage\Base\Bridge\Contract\StorageFacadeServiceExceptionInterface;
 use Heptacom\HeptaConnect\Storage\Base\Enum\RouteCapability;
+use Heptacom\HeptaConnect\Storage\Base\Exception\UnsupportedStorageKeyException;
 
 trait CreateRouteMigrationTrait
 {
+    /**
+     * @param class-string<DatasetEntityContract> $type
+     * @param string[] $capabilities
+     * @throws InvalidClassNameException
+     * @throws InvalidSubtypeClassNameException
+     * @throws StorageFacadeServiceExceptionInterface
+     * @throws UnexpectedLeadingNamespaceSeparatorInClassNameException
+     * @throws UnsupportedStorageKeyException
+     */
     public function addRoute(
         string $sourceAlias,
         string $targetAlias,
@@ -36,7 +52,7 @@ trait CreateRouteMigrationTrait
             new RouteCreatePayload(
                 $sourcePortalNodeKey,
                 $targetPortalNodeKey,
-                $type,
+                new EntityType($type),
                 $capabilities
             ),
         ]);

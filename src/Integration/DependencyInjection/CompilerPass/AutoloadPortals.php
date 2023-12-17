@@ -26,7 +26,7 @@ final class AutoloadPortals implements CompilerPassInterface
         foreach ($files as $file) {
             // prevent access to object context
             (static function (string $file): void {
-                include $file;
+                include_once $file;
             })($file);
         }
 

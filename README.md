@@ -36,6 +36,11 @@ It provides a quickstart for projects aiming for a standalone application based 
     * You can use `\Heptacom\HeptaConnect\Storage\Base\Bridge\Contract\StorageFacadeInterface` via `$migrationHelper->getStorageFacade()`. This will grant you access to every storage action of the management storage.
     * You can use `\Doctrine\DBAL\Connection` via `$migrationHelper->getConnection()`. This will grant you direct access to the underlying database.
     * Run `bin/console system:update:finish` to apply all new migrations.
+* You can normalize your code-style using `laravel/pint`.
+    * Edit `pint.json` to customize your defined rules.
+        * [Here is an overview of all available rules and their configuration options.](https://mlocati.github.io/php-cs-fixer-configurator/)
+    * Run `composer cs:lint` to check your code against your defined rules.
+    * Run `composer cs:fix` to automatically apply your defined rules to your code.
 
 ## Deployment
 

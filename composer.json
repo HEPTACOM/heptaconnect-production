@@ -26,7 +26,9 @@
         "post-update-cmd": [
             "[ ! -f vendor/autoload.php ] || \"$PHP_BINARY\" bin/console cache:clear",
             "[ ! -f vendor/autoload.php ] || \"$PHP_BINARY\" bin/console system:update:finish"
-        ]
+        ],
+        "cs:lint": "pint --test",
+        "cs:fix": "pint"
     },
     "autoload": {
         "psr-4": {

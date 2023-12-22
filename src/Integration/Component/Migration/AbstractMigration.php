@@ -11,7 +11,7 @@ abstract class AbstractMigration extends MigrationStep
 {
     final public function getCreationTimestamp(): int
     {
-        \preg_match_all('/Migration(\d+)/', \get_class($this), $matches, PREG_SET_ORDER);
+        \preg_match_all('/Migration(\d+)/', \get_class($this), $matches, \PREG_SET_ORDER);
 
         $timestamp = $matches[0][1] ?? null;
 

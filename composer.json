@@ -46,6 +46,9 @@
         "shopware/core": "~v6.4.0",
         "symfony/framework-bundle": "^5.4"
     },
+    "require-dev": {
+        "laravel/pint": "^1.13"
+    },
     "extra": {
         "shopware-plugin-class": "HeptaConnect\\Production\\Integration\\Integration"
     }

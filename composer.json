@@ -4,9 +4,6 @@
     "license": "MIT",
     "config": {
         "optimize-autoloader": true,
-        "platform": {
-            "php": "7.4.3"
-        },
         "sort-packages": true,
         "allow-plugins": {
             "composer/package-versions-deprecated": true
@@ -37,7 +34,7 @@
     },
     "repositories": [],
     "require": {
-        "php": "^7.4.3 || ^8.0",
+        "php": "^8.2",
         "composer-runtime-api": "^2.0",
         "heptacom/heptaconnect-bridge-shopware-platform": "^0.9",
         "heptacom/heptaconnect-core": "^0.9",

@@ -1,0 +1,3 @@
+framework:
+    secrets:
+        vault_directory: "%kernel.project_dir%/storage/data/secrets/%kernel.runtime_environment%"

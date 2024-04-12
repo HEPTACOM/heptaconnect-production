@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace HeptaConnect\Production\Integration\DependencyInjection\CompilerPass;
+namespace HeptaConnect\Production\DevOps\DependencyInjection\CompilerPass;
 
 use Heptacom\HeptaConnect\Core\Portal\PortalFactory;
 use Heptacom\HeptaConnect\Portal\Base\Portal\Contract\PortalContract;
@@ -18,7 +18,7 @@ final class AutoloadPortals implements CompilerPassInterface
 
     private const PORTAL_NAMESPACE = 'HeptaConnect\\Production\\Portal\\';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $files = \glob(self::GLOB_PATTERN) ?: [];
         $files = \array_filter(\array_map('realpath', $files), 'is_string');

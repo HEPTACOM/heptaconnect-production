@@ -1,9 +1,10 @@
 #!/usr/bin/env php
 <?php declare(strict_types=1);
 
+use Composer\InstalledVersions;
+use HeptaConnect\Production\DevOps\Kernel\HttpKernel;
 use Shopware\Core\DevOps\Environment\EnvironmentHelper;
 use Shopware\Core\Framework\Plugin\KernelPluginLoader\ComposerPluginLoader;
-use Shopware\Core\HttpKernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Dotenv\Dotenv;
@@ -59,4 +60,14 @@ $kernel = new HttpKernel($env, $debug, $classLoader);
 $kernel->setPluginLoader(new ComposerPluginLoader($classLoader));
 
 $application = new Application($kernel->getKernel());
+$application->setName('HEPTAconnect');
+
+if (InstalledVersions::isInstalled('heptacom/heptaconnect-framework')) {
+    $application->setVersion(InstalledVersions::getVersion('heptacom/heptaconnect-framework'));
+} elseif (InstalledVersions::isInstalled('heptacom/heptaconnect-core')) {
+    $application->setVersion(InstalledVersions::getVersion('heptacom/heptaconnect-core'));
+} else {
+    $application->setVersion('UNKNOWN');
+}
+
 $application->run($input);

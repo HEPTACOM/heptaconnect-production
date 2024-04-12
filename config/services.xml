@@ -2,21 +2,7 @@
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-
-    <imports>
-        <import resource="services/defaults.xml" />
-    </imports>
-
     <services>
-        <service id="HeptaConnect\Production\DevOps\UpdateSubscriber">
-            <tag name="kernel.event_subscriber"/>
-            <argument type="service" id="kernel"/>
-        </service>
-
-        <service id="HeptaConnect\Production\DevOps\CreateMigrationSubscriber">
-            <tag name="kernel.event_subscriber"/>
-        </service>
-
         <service id="Heptacom\HeptaConnect\Core\Bridge\PortalNode\Configuration\InstructionFileLoader">
             <tag name="heptaconnect_core.portal_node_configuration.instruction_file_loader"/>
             <argument>%kernel.project_dir%/config/heptaconnect.php</argument>

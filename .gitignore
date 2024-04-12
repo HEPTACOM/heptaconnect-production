@@ -29,15 +29,5 @@
 /public/bundles/*
 !/public/bundles/.gitkeep
 
-/files/*
-
-/repos/
-
 .env
 install.lock
-
-/var/*
-!/var/log/.gitkeep
-!/var/cache/.gitkeep
-!/var/queue/.gitkeep
-!/var/test/.gitkeep

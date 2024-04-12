@@ -11,11 +11,10 @@ It provides a quickstart for projects aiming for a standalone application based 
 1. Fork this repository. Clone your fork to your local machine and navigate to the repository on your command line interface.
 2. Run `composer install`.
 3. Run `bin/console system:setup` to generate your `.env` file. The wizard will prompt you for database credentials.
-4. Run `bin/console system:install`. If your database does not exist yet, add `--create-database` to the command.
-5. Run `bin/console system:update:finish`.
-6. Configure the document root directory (`/public`) to be hosted by a webserver under a dedicated hostname.
+4. Run `bin/console system:install`.
+5. Configure the document root directory (`/public`) to be hosted by a webserver under a dedicated hostname.
     1. If you are using macOS, we recommend [Laravel Valet](https://laravel.com/docs/9.x/valet).
-7. Run `bin/console heptaconnect:config:base-url:set <your-hostname>` where you replace `<your-hostname>` with the previously configured hostname.
+6. Run `bin/console heptaconnect:config:base-url:set <your-hostname>` where you replace `<your-hostname>` with the previously configured hostname.
 
 ✅ That's it. The system installation is complete.
 

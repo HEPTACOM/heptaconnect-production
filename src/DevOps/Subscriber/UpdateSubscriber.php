@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace HeptaConnect\Production\DevOps;
+namespace HeptaConnect\Production\DevOps\Subscriber;
 
 use Shopware\Core\Framework\Update\Event\UpdatePostFinishEvent;
 use Symfony\Bundle\FrameworkBundle\Console\Application;

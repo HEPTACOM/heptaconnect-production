@@ -1,0 +1,8 @@
+shopware:
+    filesystem:
+        private:
+            config:
+                root: "%kernel.project_dir%/storage/data/files"
+        temp:
+            config:
+                root: "%kernel.project_dir%/storage/data/var"

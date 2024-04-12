@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace HeptaConnect\Production\DevOps;
+namespace HeptaConnect\Production\DevOps\Subscriber;
 
 use Shopware\Core\Framework\Migration\Command\CreateMigrationCommand;
 use Symfony\Component\Console\ConsoleEvents;
@@ -28,7 +28,7 @@ final class CreateMigrationSubscriber implements EventSubscriberInterface
 
         $event->getCommand()->getDefinition()->getOption('plugin')->setDefault('Integration');
 
-        $patchTemplateFileName = __DIR__ . '/Template/MigrationTemplate.txt';
+        $patchTemplateFileName = __DIR__ . '/../Template/MigrationTemplate.txt';
         $originalTemplateFileName = $this->getOriginalTemplateFileName();
         $backupTemplateFileName = $originalTemplateFileName . '.bak';
 

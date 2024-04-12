@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="jwt_private_key_passphrase_default">shopware</parameter>
+        <parameter key="default_whitespace"> </parameter>
+        <parameter key="default_elasticsearch_prefix">sw</parameter>
+        <parameter key="shopware.store.frw">true</parameter>
+    </parameters>
+
+    <services>
+        <service class="League\OAuth2\Server\CryptKey" id="shopware.private_key">
+            <argument>file://%kernel.project_dir%/storage/data/jwt/private.pem</argument>
+            <argument>%env(string:default:jwt_private_key_passphrase_default:JWT_PRIVATE_KEY_PASSPHRASE)%</argument>
+        </service>
+
+        <service class="League\OAuth2\Server\CryptKey" id="shopware.public_key">
+            <argument>file://%kernel.project_dir%/storage/data/jwt/public.pem</argument>
+        </service>
+
+        <service id="Shopware\Core\System\SalesChannel\Api\StructEncoder">
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="serializer"/>
+        </service>
+
+        <service id="Shopware\Core\System\SalesChannel\Entity\SalesChannelDefinitionInstanceRegistry" public="true">
+            <argument type="string"/>
+            <argument type="service" id="service_container" />
+            <argument type="collection"/>
+            <argument type="collection"/>
+        </service>
+
+        <service id="kernel.bundles" class="Iterator">
+            <factory service="kernel" method="getBundles"/>
+        </service>
+
+        <service id="shopware.jwt_signer" class="Lcobucci\JWT\Signer\Rsa\Sha256"/>
+
+        <service id="shopware.jwt_config" class="Lcobucci\JWT\Configuration">
+            <factory class="Shopware\Core\Checkout\Payment\Cart\Token\JWTConfigurationFactory"
+                     method="createJWTConfiguration"/>
+            <argument type="service" id="shopware.jwt_signer"/>
+            <argument type="service" id="shopware.private_key"/>
+            <argument type="service" id="shopware.public_key"/>
+        </service>
+
+        <service id="Shopware\Core\System\SystemConfig\SystemConfigService" public="true">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="system_config.repository"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\Util\ConfigReader" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigLoader" />
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="Shopware\Core\System\SystemConfig\SystemConfigDefinition">
+            <tag name="shopware.entity.definition"/>
+        </service>
+
+        <service id="Shopware\Core\System\SystemConfig\Util\ConfigReader"/>
+
+        <service id="Shopware\Core\System\SystemConfig\SystemConfigLoader">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="Symfony\Component\HttpKernel\KernelInterface"/>
+        </service>
+
+        <service class="HeptaConnect\Production\DevOps\Polyfill\AssetService"
+                 id="Shopware\Core\Framework\Plugin\Util\AssetService"/>
+
+        <service class="HeptaConnect\Production\DevOps\Polyfill\AssetPackageService"
+                 id="Shopware\Core\Framework\Adapter\Asset\AssetPackageService"
+                 public="true"/>
+
+        <service class="HeptaConnect\Production\DevOps\Polyfill\AssetInstallCommand"
+                 id="console.command.assets_install">
+            <tag name="console.command"/>
+        </service>
+    </services>
+</container>

@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
+use HeptaConnect\Production\DevOps\Kernel\HttpKernel;
 use Shopware\Core\Framework\Plugin\KernelPluginLoader\ComposerPluginLoader;
-use Shopware\Core\HttpKernel;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +12,7 @@ if (\PHP_VERSION_ID < 70403) {
     \header('Content-type: text/html; charset=utf-8', true, 503);
 
     echo '<h2>Error</h2>';
-    echo 'Your server is running PHP version ' . \PHP_VERSION . ' but Shopware 6 requires at least PHP 7.4.3';
+    echo 'Your server is running PHP version ' . \PHP_VERSION . ' but HEPTAconnect requires at least PHP 7.4.3';
     exit(1);
 }
 

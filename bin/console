@@ -1,73 +1,60 @@
 #!/usr/bin/env php
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use Composer\InstalledVersions;
 use HeptaConnect\Production\DevOps\Kernel\HttpKernel;
-use Shopware\Core\DevOps\Environment\EnvironmentHelper;
 use Shopware\Core\Framework\Plugin\KernelPluginLoader\ComposerPluginLoader;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\Dotenv\Dotenv;
-use Symfony\Component\ErrorHandler\Debug;
 
-if (\PHP_VERSION_ID < 70403) {
-    echo 'Your cli is running PHP version ' . \PHP_VERSION . ' but HEPTAconnect requires at least PHP 7.4.3' . \PHP_EOL;
-    exit(1);
-}
-
-\set_time_limit(0);
-
-$classLoader = require __DIR__ . '/../vendor/autoload.php';
 $projectRoot = \dirname(__DIR__);
 
 if (
-    \class_exists(Dotenv::class) && (
-        \file_exists($projectRoot . '/.env.local.php')
-        || \file_exists($projectRoot . '/.env')
-        || \file_exists($projectRoot . '/.env.dist')
-    )
+    !\file_exists($projectRoot . '/.env')
+    && !\file_exists($projectRoot . '/.env.dist')
+    && !\file_exists($projectRoot . '/.env.local.php')
 ) {
-    (new Dotenv())->usePutenv()->bootEnv($projectRoot . '/.env');
+    $_SERVER['APP_RUNTIME_OPTIONS']['disable_dotenv'] = true;
 }
 
-if (!EnvironmentHelper::hasVariable('PROJECT_ROOT')) {
-    $_SERVER['PROJECT_ROOT'] = $projectRoot;
-}
+require_once __DIR__ . '/../vendor/autoload_runtime.php';
+$classLoader = require __DIR__ . '/../vendor/autoload.php';
 
-$input = new ArgvInput();
-$env = $input->getParameterOption(['--env', '-e'], $_SERVER['APP_ENV'] ?? 'prod', true);
-$debug = ($_SERVER['APP_DEBUG'] ?? ($env !== 'prod')) && !$input->hasParameterOption('--no-debug', true);
-
-if ($debug) {
-    \umask(0000);
-
-    if (\class_exists(Debug::class)) {
-        Debug::enable();
+return function (array $context) use ($classLoader, $projectRoot): Application {
+    if (!isset($context['PROJECT_ROOT'])) {
+        $context['PROJECT_ROOT'] = $projectRoot;
     }
-}
 
-if ($input->getFirstArgument() === 'system:install') {
-    $_SERVER['INSTALL'] = true;
-}
+    $input = new ArgvInput();
+    $env = $input->getParameterOption(['--env', '-e'], $context['APP_ENV'] ?? 'prod', true);
+    $debug = ($context['APP_DEBUG'] ?? ($env !== 'prod')) && !$input->hasParameterOption('--no-debug', true);
 
-$databaseUrl = (string) EnvironmentHelper::getVariable('DATABASE_URL', \getenv('DATABASE_URL'));
+    if ($input->getFirstArgument() === 'system:install') {
+        $context['INSTALL'] = true;
+    }
 
-if (\trim($databaseUrl ?? '') === '') {
-    $_SERVER['SHOPWARE_SKIP_CONNECTION_VARIABLES'] = true;
-}
+    if (\trim($context['DATABASE_URL'] ?? '') === '' || isset($context['INSTALL'])) {
+        $context['SHOPWARE_SKIP_CONNECTION_VARIABLES'] = true;
+    }
 
-$kernel = new HttpKernel($env, $debug, $classLoader);
-$kernel->setPluginLoader(new ComposerPluginLoader($classLoader));
+    $httpKernel = new HttpKernel($env, $debug, $classLoader);
+    $httpKernel->setPluginLoader(new ComposerPluginLoader($classLoader));
+    $kernel = $httpKernel->getKernel();
 
-$application = new Application($kernel->getKernel());
-$application->setName('HEPTAconnect');
+    $application = new Application($kernel);
+    $application->setName('HEPTAconnect');
 
-if (InstalledVersions::isInstalled('heptacom/heptaconnect-framework')) {
-    $application->setVersion(InstalledVersions::getVersion('heptacom/heptaconnect-framework'));
-} elseif (InstalledVersions::isInstalled('heptacom/heptaconnect-core')) {
-    $application->setVersion(InstalledVersions::getVersion('heptacom/heptaconnect-core'));
-} else {
-    $application->setVersion('UNKNOWN');
-}
+    if (InstalledVersions::isInstalled('heptacom/heptaconnect-framework')) {
+        $application->setVersion(InstalledVersions::getVersion('heptacom/heptaconnect-framework'));
+    } elseif (InstalledVersions::isInstalled('heptacom/heptaconnect-core')) {
+        $application->setVersion(InstalledVersions::getVersion('heptacom/heptaconnect-core'));
+    } else {
+        $application->setVersion('UNKNOWN');
+    }
 
-$application->run($input);
+    $kernel->boot();
+
+    return $application;
+};

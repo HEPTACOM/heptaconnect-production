@@ -7,7 +7,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "symfony/runtime": true
         }
     },
     "prefer-stable": true,
@@ -46,7 +47,8 @@
         "heptacom/heptaconnect-storage-base": "^0.9",
         "heptacom/heptaconnect-storage-shopware-dal": "^0.9",
         "shopware/core": "~v6.4.20",
-        "symfony/framework-bundle": "^5.4"
+        "symfony/framework-bundle": "^5.4",
+        "symfony/runtime": "^6.4"
     },
     "require-dev": {
         "laravel/pint": "^1.13"

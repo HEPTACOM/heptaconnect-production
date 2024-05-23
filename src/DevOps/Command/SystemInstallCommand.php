@@ -41,7 +41,7 @@ final class SystemInstallCommand extends Command
         $this
             ->addOption('create-database', null, InputOption::VALUE_NONE, 'Create database if it doesn\'t exist.')
             ->addOption('drop-database', null, InputOption::VALUE_NONE, 'Drop existing database')
-            ->addOption('force', 'f', InputOption::VALUE_NONE, 'Force install even if install.lock exists')
+            ->addOption('force', 'f', InputOption::VALUE_NONE, 'Force install even if storage/data/install.lock exists')
         ;
     }
 
@@ -53,8 +53,8 @@ final class SystemInstallCommand extends Command
         $_ENV['BLUE_GREEN_DEPLOYMENT'] = $_SERVER['BLUE_GREEN_DEPLOYMENT'] = 0;
         \putenv('BLUE_GREEN_DEPLOYMENT=' . 0);
 
-        if (!$input->getOption('force') && \file_exists($this->projectDir . '/install.lock')) {
-            $output->comment('install.lock already exists. Delete it or pass --force to do it anyway.');
+        if (!$input->getOption('force') && \file_exists($this->projectDir . '/storage/data/install.lock')) {
+            $output->comment('storage/data/install.lock already exists. Delete it or pass --force to do it anyway.');
 
             return self::FAILURE;
         }
@@ -95,7 +95,7 @@ final class SystemInstallCommand extends Command
 
         $this->runCommands($commands, $output);
 
-        \touch($this->projectDir . '/install.lock');
+        \touch($this->projectDir . '/storage/data/install.lock');
 
         return self::SUCCESS;
     }

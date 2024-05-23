@@ -31,3 +31,4 @@
 
 .env
 install.lock
+storage/data/install.lock

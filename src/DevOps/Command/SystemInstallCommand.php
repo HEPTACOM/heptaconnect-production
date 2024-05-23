@@ -12,26 +12,28 @@ use Shopware\Core\Maintenance\System\Service\DatabaseConnectionFactory;
 use Shopware\Core\Maintenance\System\Service\SetupDatabaseAdapter;
 use Shopware\Core\Maintenance\System\Struct\DatabaseConnectionInformation;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\ConsoleEvents;
+use Symfony\Component\Console\Event\ConsoleCommandEvent;
+use Symfony\Component\Console\Event\ConsoleErrorEvent;
+use Symfony\Component\Console\Event\ConsoleTerminateEvent;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 final class SystemInstallCommand extends Command
 {
     protected static $defaultName = 'system:install';
 
-    private string $projectDir;
-
-    private SetupDatabaseAdapter $setupDatabaseAdapter;
-
-    public function __construct(string $projectDir, SetupDatabaseAdapter $setupDatabaseAdapter)
-    {
+    public function __construct(
+        private string $projectDir,
+        private SetupDatabaseAdapter $setupDatabaseAdapter,
+        private EventDispatcherInterface $dispatcher,
+    ) {
         parent::__construct();
-        $this->projectDir = $projectDir;
-        $this->setupDatabaseAdapter = $setupDatabaseAdapter;
     }
 
     protected function configure(): void
@@ -131,7 +133,8 @@ final class SystemInstallCommand extends Command
             unset($parameters['command'], $parameters['allowedToFail']);
 
             try {
-                $returnCode = $command->run(
+                $returnCode = $this->doRunCommand(
+                    $command,
                     new ArrayInput($parameters, $command->getDefinition()),
                     $subOutput
                 );
@@ -198,5 +201,38 @@ final class SystemInstallCommand extends Command
         }
 
         return true;
+    }
+
+    private function doRunCommand(Command $command, InputInterface $input, OutputInterface $output): int
+    {
+        $event = new ConsoleCommandEvent($command, $input, $output);
+        $e = null;
+
+        try {
+            $this->dispatcher->dispatch($event, ConsoleEvents::COMMAND);
+
+            if ($event->commandShouldRun()) {
+                $exitCode = $command->run($input, $output);
+            } else {
+                $exitCode = ConsoleCommandEvent::RETURN_CODE_DISABLED;
+            }
+        } catch (\Throwable $e) {
+            $event = new ConsoleErrorEvent($input, $output, $e, $command);
+            $this->dispatcher->dispatch($event, ConsoleEvents::ERROR);
+            $e = $event->getError();
+
+            if (0 === $exitCode = $event->getExitCode()) {
+                $e = null;
+            }
+        }
+
+        $event = new ConsoleTerminateEvent($command, $input, $output, $exitCode);
+        $this->dispatcher->dispatch($event, ConsoleEvents::TERMINATE);
+
+        if ($e !== null) {
+            throw $e;
+        }
+
+        return $event->getExitCode();
     }
 }

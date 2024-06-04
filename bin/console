@@ -5,9 +5,10 @@ declare(strict_types=1);
 
 use Composer\InstalledVersions;
 use HeptaConnect\Production\DevOps\Kernel\HttpKernel;
-use Shopware\Core\Framework\Plugin\KernelPluginLoader\ComposerPluginLoader;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
+
+use function HeptaConnect\Production\getPluginLoader;
 
 $projectRoot = \dirname(__DIR__);
 
@@ -21,6 +22,7 @@ if (
 
 require_once __DIR__ . '/../vendor/autoload_runtime.php';
 $classLoader = require __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../config/plugin-loader.php';
 
 return function (array $context) use ($classLoader, $projectRoot): Application {
     if (!isset($context['PROJECT_ROOT'])) {
@@ -40,7 +42,7 @@ return function (array $context) use ($classLoader, $projectRoot): Application {
     }
 
     $httpKernel = new HttpKernel($env, $debug, $classLoader);
-    $httpKernel->setPluginLoader(new ComposerPluginLoader($classLoader));
+    $httpKernel->setPluginLoader(getPluginLoader($projectRoot, $classLoader));
     $kernel = $httpKernel->getKernel();
 
     $application = new Application($kernel);

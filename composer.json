@@ -1,6 +1,6 @@
 {
     "name": "heptaconnect/production",
-    "type": "shopware-platform-plugin",
+    "type": "project",
     "license": "MIT",
     "config": {
         "optimize-autoloader": true,
@@ -52,8 +52,5 @@
     },
     "require-dev": {
         "laravel/pint": "^1.13"
-    },
-    "extra": {
-        "shopware-plugin-class": "HeptaConnect\\Production\\Integration\\Integration"
     }
 }

@@ -8,6 +8,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use function HeptaConnect\Production\getPluginLoader;
 
 $_SERVER['SCRIPT_FILENAME'] = __FILE__;
+$_SERVER['APP_RUNTIME_OPTIONS']['use_putenv'] = true;
 $projectRoot = \dirname(__DIR__);
 
 if (

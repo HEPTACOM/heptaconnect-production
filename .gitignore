@@ -29,6 +29,6 @@
 /public/bundles/*
 !/public/bundles/.gitkeep
 
-.env
+.env.local
 install.lock
 storage/data/install.lock

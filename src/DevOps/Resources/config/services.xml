@@ -15,6 +15,15 @@
             <argument type="service" id="event_dispatcher"/>
         </service>
 
+        <service id="HeptaConnect\Production\DevOps\Command\SystemSetupCommand">
+            <tag name="console.command"/>
+            <argument type="string">%kernel.project_dir%</argument>
+            <argument type="string">%kernel.cache_dir%</argument>
+            <argument type="service">
+                <service class="Nyholm\Psr7\Factory\Psr17Factory"/>
+            </argument>
+        </service>
+
         <service id="HeptaConnect\Production\DevOps\Subscriber\CreateMigrationSubscriber">
             <tag name="kernel.event_subscriber"/>
         </service>

@@ -39,6 +39,7 @@
     "repositories": [],
     "require": {
         "php": "^8.2",
+        "ext-pdo": "*",
         "composer-runtime-api": "^2.0",
         "heptacom/heptaconnect-bridge-shopware-platform": "^0.9",
         "heptacom/heptaconnect-core": "^0.9",

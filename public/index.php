@@ -14,6 +14,7 @@ $projectRoot = \dirname(__DIR__);
 if (
     !\file_exists($projectRoot . '/.env')
     && !\file_exists($projectRoot . '/.env.dist')
+    && !\file_exists($projectRoot . '/.env.local')
     && !\file_exists($projectRoot . '/.env.local.php')
 ) {
     $_SERVER['APP_RUNTIME_OPTIONS']['disable_dotenv'] = true;

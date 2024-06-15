@@ -46,25 +46,6 @@
             <argument type="service" id="shopware.public_key"/>
         </service>
 
-        <service id="Shopware\Core\System\SystemConfig\SystemConfigService" public="true">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument type="service" id="system_config.repository"/>
-            <argument type="service" id="Shopware\Core\System\SystemConfig\Util\ConfigReader" />
-            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigLoader" />
-            <argument type="service" id="event_dispatcher"/>
-        </service>
-
-        <service id="Shopware\Core\System\SystemConfig\SystemConfigDefinition">
-            <tag name="shopware.entity.definition"/>
-        </service>
-
-        <service id="Shopware\Core\System\SystemConfig\Util\ConfigReader"/>
-
-        <service id="Shopware\Core\System\SystemConfig\SystemConfigLoader">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument type="service" id="Symfony\Component\HttpKernel\KernelInterface"/>
-        </service>
-
         <service class="HeptaConnect\Production\DevOps\Polyfill\AssetService"
                  id="Shopware\Core\Framework\Plugin\Util\AssetService"/>
 

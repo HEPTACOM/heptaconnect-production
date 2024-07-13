@@ -21,7 +21,7 @@ function getPluginLoader(string $projectRoot, ClassLoader $classLoader): KernelP
     $composer = (new Factory())->createComposer(new NullIO(), $projectRoot . '/composer.json');
     $rootPackage = $composer->getPackage();
 
-    return new StaticKernelPluginLoader($classLoader, null, [
+    $pluginLoader = new StaticKernelPluginLoader($classLoader, null, [
         [
             'name' => $integrationClass->getShortName(),
             'baseClass' => $integrationClass->getName(),
@@ -33,4 +33,8 @@ function getPluginLoader(string $projectRoot, ClassLoader $classLoader): KernelP
             'composerName' => $rootPackage->getName(),
         ],
     ]);
+
+    $pluginLoader->initializePlugins($projectRoot);
+
+    return $pluginLoader;
 }

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace HeptaConnect\Production\DevOps\Command;
 
-use Defuse\Crypto\Key;
 use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\DriverManager;
 use Psr\Http\Message\UriFactoryInterface;
 use Shopware\Core\DevOps\Environment\EnvironmentHelper;
+use Shopware\Core\Framework\Util\Random;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -150,8 +150,7 @@ final class SystemSetupCommand extends Command
             return self::SUCCESS;
         }
 
-        $key = Key::createNewRandomKey();
-        $env['APP_SECRET'] = $key->saveToAsciiSafeString();
+        $env['APP_SECRET'] = Random::getString(136);
         $env['INSTANCE_ID'] = $this->generateInstanceId();
 
         if (!$input->isInteractive()) {

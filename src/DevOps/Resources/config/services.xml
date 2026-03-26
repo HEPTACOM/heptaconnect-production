@@ -20,8 +20,15 @@
             <argument type="string">%kernel.project_dir%</argument>
             <argument type="string">%kernel.cache_dir%</argument>
             <argument type="service">
-                <service class="Nyholm\Psr7\Factory\Psr17Factory"/>
+                <service>
+                    <factory class="Http\Discovery\Psr17FactoryDiscovery" method="findUriFactory"/>
+                </service>
             </argument>
+        </service>
+
+        <service id="HeptaConnect\Production\DevOps\Command\SystemUpdateFinishCommand">
+            <tag name="console.command"/>
+            <argument type="service" id="service_container"/>
         </service>
 
         <service id="HeptaConnect\Production\DevOps\Subscriber\CreateMigrationSubscriber">

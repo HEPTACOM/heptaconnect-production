@@ -33,7 +33,7 @@ final class ComposerPortalLoader extends BaseComposerPortalLoader
     public function __construct(
         BaseComposerPortalLoader $loader,
         iterable $portals,
-        iterable $portalExtensions
+        iterable $portalExtensions,
     ) {
         $this->loader = $loader;
         $this->portals = $portals;

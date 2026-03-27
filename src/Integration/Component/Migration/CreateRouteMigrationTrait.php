@@ -15,7 +15,7 @@ trait CreateRouteMigrationTrait
         string $sourceAlias,
         string $targetAlias,
         string $type,
-        array $capabilities = [RouteCapability::RECEPTION]
+        array $capabilities = [RouteCapability::RECEPTION],
     ): void {
         $storageKeyGenerator = $this->storageFacade->getStorageKeyGenerator();
         $routeCreateAction = $this->storageFacade->getRouteCreateAction();

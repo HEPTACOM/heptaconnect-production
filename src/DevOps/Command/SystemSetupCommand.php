@@ -20,9 +20,9 @@ final class SystemSetupCommand extends Command
     protected static $defaultName = 'system:setup';
 
     public function __construct(
-        private string $projectDir,
-        private string $cacheDir,
-        private UriFactoryInterface $uriFactory,
+        private readonly string $projectDir,
+        private readonly string $cacheDir,
+        private readonly UriFactoryInterface $uriFactory,
     ) {
         parent::__construct();
     }

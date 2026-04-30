@@ -12,16 +12,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
-final class UpdateSubscriber implements EventSubscriberInterface
+final readonly class UpdateSubscriber implements EventSubscriberInterface
 {
-    private KernelInterface $kernel;
-
-    public function __construct(KernelInterface $kernel)
-    {
-        $this->kernel = $kernel;
+    public function __construct(
+        private KernelInterface $kernel,
+    ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             UpdatePostFinishEvent::class => 'handle',

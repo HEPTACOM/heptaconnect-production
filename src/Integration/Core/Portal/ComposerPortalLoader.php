@@ -12,17 +12,15 @@ use Heptacom\HeptaConnect\Portal\Base\Portal\PortalExtensionCollection;
 
 final class ComposerPortalLoader extends BaseComposerPortalLoader
 {
-    private BaseComposerPortalLoader $loader;
+    /**
+     * @var list<PortalContract>
+     */
+    private readonly array $portals;
 
     /**
-     * @var iterable<PortalContract>
+     * @var list<PortalExtensionContract>
      */
-    private iterable $portals;
-
-    /**
-     * @var iterable<PortalExtensionContract>
-     */
-    private iterable $portalExtensions;
+    private readonly array $portalExtensions;
 
     /**
      * @noinspection PhpMissingParentConstructorInspection
@@ -31,13 +29,12 @@ final class ComposerPortalLoader extends BaseComposerPortalLoader
      * @param iterable<PortalExtensionContract> $portalExtensions
      */
     public function __construct(
-        BaseComposerPortalLoader $loader,
+        private BaseComposerPortalLoader $loader,
         iterable $portals,
         iterable $portalExtensions,
     ) {
-        $this->loader = $loader;
-        $this->portals = $portals;
-        $this->portalExtensions = $portalExtensions;
+        $this->portals = [...$portals];
+        $this->portalExtensions = [...$portalExtensions];
     }
 
     public function getPortals(): PortalCollection

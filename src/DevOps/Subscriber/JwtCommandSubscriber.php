@@ -8,13 +8,11 @@ use Shopware\Core\Maintenance\System\Command\SystemGenerateJwtSecretCommand;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-final class JwtCommandSubscriber implements EventSubscriberInterface
+final readonly class JwtCommandSubscriber implements EventSubscriberInterface
 {
-    private string $projectDir;
-
-    public function __construct(string $projectDir)
-    {
-        $this->projectDir = $projectDir;
+    public function __construct(
+        private string $projectDir,
+    ) {
     }
 
     public function __invoke(ConsoleCommandEvent $event): void

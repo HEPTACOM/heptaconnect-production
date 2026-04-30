@@ -5,7 +5,7 @@
     <services>
         <service id="HeptaConnect\Production\Integration\Core\Portal\ComposerPortalLoader"
                  decorates="Heptacom\HeptaConnect\Core\Portal\ComposerPortalLoader">
-            <argument type="service" id="HeptaConnect\Production\Integration\Core\Portal\ComposerPortalLoader.inner"/>
+            <argument type="service" id=".inner"/>
             <argument type="tagged_iterator" tag="heptaconnect.portal"/>
             <argument type="tagged_iterator" tag="heptaconnect.portal_extension"/>
         </service>

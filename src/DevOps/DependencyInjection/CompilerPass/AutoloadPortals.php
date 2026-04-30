@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
-final class AutoloadPortals implements CompilerPassInterface
+final readonly class AutoloadPortals implements CompilerPassInterface
 {
     private const GLOB_PATTERN = __DIR__ . '/../../../Portal/*/*.php';
 

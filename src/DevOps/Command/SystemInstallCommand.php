@@ -28,9 +28,9 @@ final class SystemInstallCommand extends Command
     protected static $defaultName = 'system:install';
 
     public function __construct(
-        private string $projectDir,
-        private SetupDatabaseAdapter $setupDatabaseAdapter,
-        private EventDispatcherInterface $dispatcher,
+        private readonly string $projectDir,
+        private readonly SetupDatabaseAdapter $setupDatabaseAdapter,
+        private readonly EventDispatcherInterface $dispatcher,
     ) {
         parent::__construct();
     }

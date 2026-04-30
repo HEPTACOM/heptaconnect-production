@@ -7,7 +7,7 @@ namespace HeptaConnect\Production\DevOps\DependencyInjection\CompilerPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-final class RemoveObstructiveServices implements CompilerPassInterface
+final readonly class RemoveObstructiveServices implements CompilerPassInterface
 {
     private const REMOVE_DEFINITIONS = [
         'framework.filesystem.private',

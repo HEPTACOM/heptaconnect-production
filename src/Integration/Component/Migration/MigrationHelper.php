@@ -8,19 +8,17 @@ use Doctrine\DBAL\Connection;
 use Heptacom\HeptaConnect\Storage\Base\Bridge\Contract\StorageFacadeInterface;
 use Heptacom\HeptaConnect\Storage\ShopwareDal\Bridge\StorageFacade;
 
-final class MigrationHelper
+final readonly class MigrationHelper
 {
     use ActivatePortalExtensionTrait;
     use CreatePortalNodeMigrationTrait;
     use CreateRouteMigrationTrait;
 
-    private Connection $connection;
-
     private StorageFacadeInterface $storageFacade;
 
-    public function __construct(Connection $connection)
-    {
-        $this->connection = $connection;
+    public function __construct(
+        private Connection $connection,
+    ) {
         $this->storageFacade = new StorageFacade($connection);
     }
 

@@ -9,22 +9,22 @@
         </service>
 
         <service id="Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory">
-            <argument>
+            <argument type="service">
                 <service>
                     <factory class="Http\Discovery\Psr17FactoryDiscovery" method="findServerRequestFactory"/>
                 </service>
             </argument>
-            <argument>
+            <argument type="service">
                 <service>
                     <factory class="Http\Discovery\Psr17FactoryDiscovery" method="findStreamFactory"/>
                 </service>
             </argument>
-            <argument>
+            <argument type="service">
                 <service>
                     <factory class="Http\Discovery\Psr17FactoryDiscovery" method="findUploadedFileFactory"/>
                 </service>
             </argument>
-            <argument>
+            <argument type="service">
                 <service>
                     <factory class="Http\Discovery\Psr17FactoryDiscovery" method="findResponseFactor"/>
                 </service>
